@@ -147,6 +147,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Employee";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -198,6 +199,7 @@
             this.Name = "EcDialouge";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EcDialouge";
+            this.Load += new System.EventHandler(this.EcDialouge_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
