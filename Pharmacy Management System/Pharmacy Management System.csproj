@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controller\CustomerController.cs" />
     <Compile Include="controller\LoginController.cs" />
     <Compile Include="model\Admin.cs" />
+    <Compile Include="model\Customers.cs" />
+    <Compile Include="model\EmployeeController.cs" />
     <Compile Include="model\Customer.cs" />
     <Compile Include="model\Employee.cs" />
+    <Compile Include="model\Employees.cs" />
     <Compile Include="model\Login.cs" />
     <Compile Include="model\Logins.cs" />
     <Compile Include="model\Product.cs" />
@@ -61,6 +65,18 @@
     </Compile>
     <Compile Include="view\AdminHomeFrame.Designer.cs">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\EcCrude.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\EcCrude.Designer.cs">
+      <DependentUpon>EcCrude.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\EcDialouge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\EcDialouge.Designer.cs">
+      <DependentUpon>EcDialouge.cs</DependentUpon>
     </Compile>
     <Compile Include="view\LoginForm.cs">
       <SubType>Form</SubType>
@@ -86,8 +102,17 @@
     <EmbeddedResource Include="view\AdminHomeFrame.resx">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\EcCrude.resx">
+      <DependentUpon>EcCrude.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\EcDialouge.resx">
+      <DependentUpon>EcDialouge.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\RegistrationForm.resx">
+      <DependentUpon>RegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

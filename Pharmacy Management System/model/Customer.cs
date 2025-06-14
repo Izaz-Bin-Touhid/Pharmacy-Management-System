@@ -8,24 +8,27 @@ namespace Pharmacy_Management_System.model
 {
     public class Customer
     {
-        private int customerId;
+        private string customerName;
         private string name;
         private string password;
         private string email;
+        
 
         public Customer() { }
 
-        public Customer(int customerId, string name, string password, string email)
+        public Customer(string customerName, string name, string password, string email)
         {
-            this.CustomerId = customerId;
+            this.CustomerName = customerName;
             this.Name = name;
             this.Password = password;
             this.Email = email;
+           
         }
 
-        public int CustomerId { get => customerId; set => customerId = value; }
+        public string CustomerName { get => customerName; set => customerName = value; }
         public string Name { get => name; set => name = value; }
         public string Password { get => password; set => password = value; }
         public string Email { get => email; set => email = value; }
+        
     }
 }

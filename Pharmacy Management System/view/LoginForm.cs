@@ -35,6 +35,7 @@ namespace Pharmacy_Management_System.view
         {
             this.Hide();
             RegistrationForm rf = new RegistrationForm();
+            rf.ShowDialog();
             rf.Show();
         }
 
