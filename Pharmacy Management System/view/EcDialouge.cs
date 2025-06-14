@@ -16,5 +16,10 @@ namespace Pharmacy_Management_System.view
         {
             InitializeComponent();
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

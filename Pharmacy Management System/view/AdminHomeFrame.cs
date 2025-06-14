@@ -26,5 +26,12 @@ namespace Pharmacy_Management_System.view
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            EcCrude ec = new EcCrude();
+            ec.Show();
+        }
     }
 }
