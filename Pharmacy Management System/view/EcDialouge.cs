@@ -76,5 +76,18 @@ namespace Pharmacy_Management_System.view
         {
 
         }
+
+        private void btnSave_MouseEnter(object sender, EventArgs e)
+        {
+            btnSave.BackColor = Color.White;
+            btnSave.ForeColor = Color.FromArgb(2, 0, 121);
+        }
+
+        private void btnSave_MouseLeave(object sender, EventArgs e)
+        {
+            btnSave.BackColor =  Color.FromArgb(2, 0, 121);
+            btnSave.ForeColor = Color.White;
+
+        }
     }
 }
