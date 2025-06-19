@@ -20,7 +20,7 @@ namespace Pharmacy_Management_System
             //Application.Run(new LoginForm());
 
             //test
-            Application.Run(new EcCrude());
+            Application.Run(new productCrude());
         }
     }
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="controller\CustomerController.cs" />
     <Compile Include="controller\LoginController.cs" />
+    <Compile Include="controller\ProductController.cs" />
     <Compile Include="model\Admin.cs" />
     <Compile Include="model\Customers.cs" />
     <Compile Include="model\EmployeeController.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="model\Login.cs" />
     <Compile Include="model\Logins.cs" />
     <Compile Include="model\Product.cs" />
+    <Compile Include="model\Products.cs" />
     <Compile Include="model\SqlDbDataAccess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +86,18 @@
     <Compile Include="view\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\productCrude.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\productCrude.Designer.cs">
+      <DependentUpon>productCrude.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ProductDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ProductDia.Designer.cs">
+      <DependentUpon>ProductDia.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\RegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\productCrude.resx">
+      <DependentUpon>productCrude.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ProductDia.resx">
+      <DependentUpon>ProductDia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>

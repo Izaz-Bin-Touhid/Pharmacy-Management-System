@@ -33,5 +33,10 @@ namespace Pharmacy_Management_System.view
             EcCrude ec = new EcCrude();
             ec.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
