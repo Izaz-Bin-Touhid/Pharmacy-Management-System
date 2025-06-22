@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Pharmacy_Management_System.model;
 using Pharmacy_Management_System.controller;
 
+
 namespace Pharmacy_Management_System.view
 {
     public partial class EcDialouge : Form

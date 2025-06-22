@@ -81,5 +81,10 @@ namespace Pharmacy_Management_System.view
                     
        
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

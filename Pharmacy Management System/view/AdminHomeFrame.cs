@@ -36,6 +36,9 @@ namespace Pharmacy_Management_System.view
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            productCrude ec = new productCrude();
+            ec.Show();
 
         }
     }

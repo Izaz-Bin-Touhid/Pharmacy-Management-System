@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Pharmacy_Management_System.model
 {
@@ -121,5 +122,23 @@ namespace Pharmacy_Management_System.model
             return productList;
 
         }
+
+        //Test
+        public static void DisplayAndSearch(string query, DataGridView dgv)
+        {
+            SqlDbDataAccess dba = new SqlDbDataAccess();
+            SqlCommand cmd = dba.GetQuery(query);
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            DataTable tbl = new DataTable();
+            tbl.Load(reader);
+            dgv.DataSource = tbl;
+
+            cmd.Connection.Close();
+        }
+
     }
 }
