@@ -16,12 +16,25 @@ namespace Pharmacy_Management_System.view
     public partial class ProductDia : Form
     {
         private readonly productCrude _product;
+        string productName, category, price, discount, stockQuantity, expiryDate, adminName;
 
 
         public ProductDia(productCrude product)
         {
             InitializeComponent();
             _product = product;
+        }
+
+        public void updateProduct()
+        {
+            btnSave.Text = "Update";
+            prtxt.Text = productName;
+            ctxt.Text = category;
+            textBox2.Text = price;
+            dtxt.Text = discount;
+            sqtxt.Text = stockQuantity;
+            extxt.Text = expiryDate;
+            atxt.Text = adminName;
         }
 
         public void Clear()
@@ -34,7 +47,7 @@ namespace Pharmacy_Management_System.view
             extxt.Text = "";
             atxt.Text = "";
 
-             
+
         }
 
 
@@ -119,6 +132,19 @@ namespace Pharmacy_Management_System.view
             // If Save mode
             if (btnSave.Text == "Save")
             {
+                Product pp = new Product { ProductName = prtxt.Text.Trim(), Category = ctxt.Text.Trim(), Price = price, Discount = discount, StockQuantity = stockQuantity, ExpiryDate = expiryDate, AdminName = adminName };
+
+                // Insert into database
+                Products products = new Products();
+                products.AddProduct(pp);
+
+                MessageBox.Show("Product saved successfully!");
+
+                Clear();
+            }
+
+            if (btnSave.Text == "Update")
+            {
                 Product pp = new Product
                 {
                     ProductName = prtxt.Text.Trim(),
@@ -130,17 +156,21 @@ namespace Pharmacy_Management_System.view
                     AdminName = adminName
                 };
 
-                // Insert into database
                 Products products = new Products();
-                products.AddProduct(pp);
+                products.UpdateProduct(pp);  // Add this line
 
-                MessageBox.Show("Product saved successfully!");
-
+                MessageBox.Show("Product updated successfully!");
                 Clear();
             }
+
 
             _product.Display();
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
+

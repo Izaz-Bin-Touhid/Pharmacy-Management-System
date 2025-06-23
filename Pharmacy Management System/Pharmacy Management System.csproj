@@ -98,6 +98,12 @@
     <Compile Include="view\ProductDia.Designer.cs">
       <DependentUpon>ProductDia.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\productUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\productUp.Designer.cs">
+      <DependentUpon>productUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\RegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\ProductDia.resx">
       <DependentUpon>ProductDia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\productUp.resx">
+      <DependentUpon>productUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>

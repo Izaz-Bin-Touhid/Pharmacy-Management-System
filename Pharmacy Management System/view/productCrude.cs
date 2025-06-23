@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pharmacy_Management_System.controller;
 using System.Data.SqlClient;
+using Pharmacy_Management_System.model;
 
 
 
@@ -17,9 +18,12 @@ namespace Pharmacy_Management_System.view
 {
     public partial class productCrude : Form
     {
+        ProductDia form;
+
         public productCrude()
         {
             InitializeComponent();
+            form = new ProductDia(this);
         }
 
         public void Display()
@@ -34,7 +38,7 @@ namespace Pharmacy_Management_System.view
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            ProductDia form = new ProductDia(this);
+            form.Clear();
             form.ShowDialog();
         }
 
@@ -67,11 +71,22 @@ namespace Pharmacy_Management_System.view
             }
 
             // Edit button (Column1) – Optional placeholder
-            //if (e.ColumnIndex == dataGridView.Columns["Column1"].Index)
-            //{
-            //    // You can open the ProductDia edit form here later
-            //    MessageBox.Show("Edit functionality here (optional)");
-            //}
+            if (e.ColumnIndex == dataGridView.Columns["Column1"].Index)
+            {
+                Product p = new Product
+                {
+                    ProductName = dataGridView.Rows[e.RowIndex].Cells["productName"].Value.ToString(),
+                    Category = dataGridView.Rows[e.RowIndex].Cells["category"].Value.ToString(),
+                    Price = float.Parse(dataGridView.Rows[e.RowIndex].Cells["price"].Value.ToString()),
+                    Discount = int.Parse(dataGridView.Rows[e.RowIndex].Cells["discount"].Value.ToString()),
+                    StockQuantity = int.Parse(dataGridView.Rows[e.RowIndex].Cells["stockQuantity"].Value.ToString()),
+                    ExpiryDate = dataGridView.Rows[e.RowIndex].Cells["expiryDate"].Value.ToString(),
+                    AdminName = dataGridView.Rows[e.RowIndex].Cells["adminName"].Value.ToString()
+                };
+
+                form.updateProduct();
+                form.ShowDialog();  // modal form opens
+            }
         }
 
 

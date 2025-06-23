@@ -1,6 +1,6 @@
 ﻿namespace Pharmacy_Management_System.view
 {
-    partial class ProductDia
+    partial class productUp
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lbltext = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.atxt = new System.Windows.Forms.TextBox();
             this.extxt = new System.Windows.Forms.TextBox();
@@ -41,36 +39,17 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.ctxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.prtxt = new System.Windows.Forms.TextBox();
             this.Pname = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbltext = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
-            this.panel1.Controls.Add(this.lbltext);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(665, 144);
-            this.panel1.TabIndex = 1;
-            // 
-            // lbltext
-            // 
-            this.lbltext.AutoSize = true;
-            this.lbltext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltext.ForeColor = System.Drawing.Color.White;
-            this.lbltext.Location = new System.Drawing.Point(30, 58);
-            this.lbltext.Name = "lbltext";
-            this.lbltext.Size = new System.Drawing.Size(130, 28);
-            this.lbltext.TabIndex = 0;
-            this.lbltext.Text = "Add Product";
             // 
             // panel2
             // 
@@ -85,16 +64,16 @@
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.btnSave);
+            this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.ctxt);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.prtxt);
             this.panel2.Controls.Add(this.Pname);
-            this.panel2.Location = new System.Drawing.Point(59, 163);
+            this.panel2.Location = new System.Drawing.Point(49, 168);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(564, 547);
-            this.panel2.TabIndex = 2;
+            this.panel2.TabIndex = 3;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // atxt
@@ -116,7 +95,6 @@
             this.extxt.Name = "extxt";
             this.extxt.Size = new System.Drawing.Size(307, 27);
             this.extxt.TabIndex = 17;
-            this.extxt.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // sqtxt
             // 
@@ -137,7 +115,6 @@
             this.dtxt.Name = "dtxt";
             this.dtxt.Size = new System.Drawing.Size(307, 27);
             this.dtxt.TabIndex = 15;
-            this.dtxt.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // textBox2
             // 
@@ -181,7 +158,6 @@
             this.label6.Size = new System.Drawing.Size(149, 25);
             this.label6.TabIndex = 11;
             this.label6.Text = "Stock Quantity :";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
@@ -205,20 +181,19 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Product Information Entry";
             // 
-            // btnSave
+            // btnUpdate
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(184, 488);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(116, 45);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.Location = new System.Drawing.Point(184, 488);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(116, 45);
+            this.btnUpdate.TabIndex = 8;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
             // 
             // ctxt
             // 
@@ -240,7 +215,6 @@
             this.label3.Size = new System.Drawing.Size(100, 25);
             this.label3.TabIndex = 4;
             this.label3.Text = "Category :";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -273,48 +247,65 @@
             this.Pname.Size = new System.Drawing.Size(144, 25);
             this.Pname.TabIndex = 0;
             this.Pname.Text = "Product Name :";
-            this.Pname.Click += new System.EventHandler(this.label1_Click);
             // 
-            // ProductDia
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
+            this.panel1.Controls.Add(this.lbltext);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(665, 144);
+            this.panel1.TabIndex = 4;
+            // 
+            // lbltext
+            // 
+            this.lbltext.AutoSize = true;
+            this.lbltext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltext.ForeColor = System.Drawing.Color.White;
+            this.lbltext.Location = new System.Drawing.Point(30, 58);
+            this.lbltext.Name = "lbltext";
+            this.lbltext.Size = new System.Drawing.Size(204, 28);
+            this.lbltext.TabIndex = 0;
+            this.lbltext.Text = "Update Product Info";
+            // 
+            // productUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 731);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "ProductDia";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProductDia";
-            this.Load += new System.EventHandler(this.ProductDia_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Controls.Add(this.panel2);
+            this.Name = "productUp";
+            this.Text = "productUp";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lbltext;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox ctxt;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox prtxt;
-        private System.Windows.Forms.Label Pname;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox atxt;
         private System.Windows.Forms.TextBox extxt;
         private System.Windows.Forms.TextBox sqtxt;
         private System.Windows.Forms.TextBox dtxt;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox ctxt;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox prtxt;
+        private System.Windows.Forms.Label Pname;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lbltext;
     }
 }
