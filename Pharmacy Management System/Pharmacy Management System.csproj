@@ -55,6 +55,7 @@
     <Compile Include="model\Customer.cs" />
     <Compile Include="model\Employee.cs" />
     <Compile Include="model\Employees.cs" />
+    <Compile Include="model\ExpireEmplos.cs" />
     <Compile Include="model\Login.cs" />
     <Compile Include="model\Logins.cs" />
     <Compile Include="model\Product.cs" />
@@ -79,6 +80,18 @@
     </Compile>
     <Compile Include="view\EcDialouge.Designer.cs">
       <DependentUpon>EcDialouge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ExpireDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ExpireDia.Designer.cs">
+      <DependentUpon>ExpireDia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ExpireEmplo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ExpireEmplo.Designer.cs">
+      <DependentUpon>ExpireEmplo.cs</DependentUpon>
     </Compile>
     <Compile Include="view\LoginForm.cs">
       <SubType>Form</SubType>
@@ -127,6 +140,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\EcDialouge.resx">
       <DependentUpon>EcDialouge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ExpireDia.resx">
+      <DependentUpon>ExpireDia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ExpireEmplo.resx">
+      <DependentUpon>ExpireEmplo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
