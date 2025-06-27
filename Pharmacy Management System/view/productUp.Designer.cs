@@ -47,6 +47,7 @@
             this.Pname = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbltext = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -251,6 +252,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.lbltext);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -269,6 +271,18 @@
             this.lbltext.TabIndex = 0;
             this.lbltext.Text = "Update Product Info";
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.Coral;
+            this.button4.Location = new System.Drawing.Point(554, 12);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(99, 36);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "Exit";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // productUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -276,6 +290,7 @@
             this.ClientSize = new System.Drawing.Size(665, 731);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "productUp";
             this.Text = "productUp";
             this.panel2.ResumeLayout(false);
@@ -307,5 +322,6 @@
         private System.Windows.Forms.Label Pname;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbltext;
+        private System.Windows.Forms.Button button4;
     }
 }

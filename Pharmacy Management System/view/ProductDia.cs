@@ -61,6 +61,11 @@ namespace Pharmacy_Management_System.view
 
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
 

@@ -47,6 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.prtxt = new System.Windows.Forms.TextBox();
             this.Pname = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +55,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(0)))), ((int)(((byte)(121)))));
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.lbltext);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -275,6 +277,18 @@
             this.Pname.Text = "Product Name :";
             this.Pname.Click += new System.EventHandler(this.label1_Click);
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.Coral;
+            this.button4.Location = new System.Drawing.Point(554, 12);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(99, 36);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "Exit";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // ProductDia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -282,7 +296,7 @@
             this.ClientSize = new System.Drawing.Size(665, 731);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ProductDia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProductDia";
@@ -316,5 +330,6 @@
         private System.Windows.Forms.TextBox sqtxt;
         private System.Windows.Forms.TextBox dtxt;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button4;
     }
 }

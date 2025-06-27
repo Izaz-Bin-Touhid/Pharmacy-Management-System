@@ -90,5 +90,10 @@ namespace Pharmacy_Management_System.view
             btnSave.ForeColor = Color.White;
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

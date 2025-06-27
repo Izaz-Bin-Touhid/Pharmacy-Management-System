@@ -16,5 +16,32 @@ namespace Pharmacy_Management_System.view
         {
             InitializeComponent();
         }
+
+        private void ExpireDia_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public ExpireDia(string productName, bool isExpired)
+        {
+            InitializeComponent();
+
+            label1.Text = isExpired
+                ? $"❌ The product \"{productName}\" is EXPIRED."
+                : $"✅ The product \"{productName}\" is still VALID.";
+
+            button1.Visible = isExpired;
+        }
+
+        private void btnSendEmail_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("📧 Email has been sent to the administrator.", "Email Sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
+

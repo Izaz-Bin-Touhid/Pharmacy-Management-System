@@ -16,6 +16,7 @@ namespace Pharmacy_Management_System.view
 {
     public partial class EcCrude : Form
     {
+        
         public EcCrude()
         {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace Pharmacy_Management_System.view
         {
             Logins.DisplayAndSearch("SELECT userName, password, role FROM Login WHERE userName LIKE '%" + txtSearch.Text + "%'", dataGridView);
         }
+
+        
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -99,6 +102,16 @@ namespace Pharmacy_Management_System.view
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

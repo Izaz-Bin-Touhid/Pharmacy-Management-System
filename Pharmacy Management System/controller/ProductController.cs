@@ -1,44 +1,98 @@
-﻿using System;
+﻿using Pharmacy_Management_System.model;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Pharmacy_Management_System.model;
+using System.Windows.Forms;
 
 namespace Pharmacy_Management_System.controller
 {
     public class ProductController
     {
-        public void AddProduct(Product p)
+        SqlDbDataAccess sda = new SqlDbDataAccess();
+
+        public void AddCustomer(Customer cs)
         {
-            Products ps = new Products();
-            ps.AddProduct(p);
+            try
+            {
+                Customers cls = new Customers();
+                cls.AddCustomers(cs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding the customer: {ex.Message}");
+            }
         }
 
-        public void UpdateProduct (Product p)
+        public void UpdateLogin(Login login)
         {
-            Products ps = new Products();
-            ps.UpdateProduct(p);
+            try
+            {
+                Logins lgs = new Logins();
+                lgs.UpdateLogin(login);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while updating the login: {ex.Message}");
+            }
         }
 
-        public void DeleteProduct(string productName)
+        public void DeleteLogin(string userName)
         {
-            Products ps = new Products();
-            ps.DeleteProduct(productName);
+            try
+            {
+                Logins lgs = new Logins();
+                lgs.DeleteLogin(userName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while deleting the login: {ex.Message}");
+            }
         }
 
-        public Product SearchProductByName(string productName)
+        public Login SearchLogin(string userName, string password)
         {
-            Products ps = new Products();
-            Product p = ps.SearchProductByName(productName);
-            return p;
+            try
+            {
+                Logins lgs = new Logins();
+                return lgs.SearchLogin(userName, password);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while searching for the login: {ex.Message}");
+                return null;
+            }
         }
-
         public List<Product> GetAllProducts()
         {
-            Products ps = new Products();
-            List<Product> productList = ps.GetProducts();
-            return productList;
+            try
+            {
+                Products ps = new Products();
+                return ps.GetProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while retrieving all products: {ex.Message}");
+                return new List<Product>();
+            }
+        }
+
+        public List<Login> GetAllLogins()
+        {
+            try
+            {
+                Logins lgs = new Logins();
+                return lgs.GetAllLogin();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while retrieving all logins: {ex.Message}");
+                return new List<Login>();
+            }
         }
 
 

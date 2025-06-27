@@ -69,6 +69,12 @@
     <Compile Include="view\AdminHomeFrame.Designer.cs">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\CustomerHomeFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\CustomerHomeFrame.Designer.cs">
+      <DependentUpon>CustomerHomeFrame.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\EcCrude.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,12 @@
     <Compile Include="view\RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -134,6 +146,10 @@
     </Compile>
     <EmbeddedResource Include="view\AdminHomeFrame.resx">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\CustomerHomeFrame.resx">
+      <DependentUpon>CustomerHomeFrame.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="view\EcCrude.resx">
       <DependentUpon>EcCrude.cs</DependentUpon>
@@ -161,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\test.resx">
+      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

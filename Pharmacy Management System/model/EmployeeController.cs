@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Pharmacy_Management_System.model;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pharmacy_Management_System.model;
 
 namespace Pharmacy_Management_System.model
 {
@@ -11,8 +12,24 @@ namespace Pharmacy_Management_System.model
     {
         public void AddEmployee(Employee c)
         {
-            Employees cls = new Employees();
-            cls.AddEmployee(c);
+            try
+            {
+                Employees cls = new Employees();
+                cls.AddEmployee(c);
+            }
+            catch (SqlException sqlEx)
+            {
+              
+                Console.WriteLine($"SQL error while adding employee: {sqlEx.Message}");
+                
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                
+            }
         }
     }
+
 }

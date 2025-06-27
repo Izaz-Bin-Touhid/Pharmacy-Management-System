@@ -106,6 +106,9 @@ namespace Pharmacy_Management_System.view
             Logins.DisplayAndSearch("SELECT productName, category, price, discount, priceAfterDiscount, stockQuantity, expiryDate, adminName FROM Product WHERE productName LIKE '%"+txtSearch.Text+"%'",dataGridView);
         }
 
-
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

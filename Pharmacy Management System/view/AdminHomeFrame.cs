@@ -15,11 +15,11 @@ namespace Pharmacy_Management_System.view
     
     public partial class AdminHomeFrame : Form
     {
-        Login login;
+        
         public AdminHomeFrame(Login login)
         {
             InitializeComponent();
-            this.login = login;
+            
         }
 
         private void AdminHomeFrame_Load(object sender, EventArgs e)
@@ -27,19 +27,52 @@ namespace Pharmacy_Management_System.view
 
         }
 
+       
+
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
             EcCrude ec = new EcCrude();
             ec.Show();
+            this.Close();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            productCrude ec = new productCrude();
-            ec.Show();
+            productCrude pc = new productCrude();
+            pc.Show();
+            this.Close();
 
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void mainpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LoginForm lg = new LoginForm();
+            lg.Show();
+            this.Close();
+        }
+
+        private void mainpanel_Paint_1(object sender, PaintEventArgs e)
+        {
+            EcCrude ec = new EcCrude(); 
+            ec.Show();
+            this.Hide();
         }
     }
 }

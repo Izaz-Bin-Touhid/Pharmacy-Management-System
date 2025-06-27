@@ -39,5 +39,28 @@ namespace Pharmacy_Management_System.view
             );
 
         }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Column name match kore check korchi
+            if (dataGridView.Columns[e.ColumnIndex].HeaderText == "expiryDate")
+            {
+                string productName = dataGridView.Rows[e.RowIndex].Cells["productName"].Value.ToString();
+
+                ExpireEmplos checker = new ExpireEmplos();
+                string status = checker.CheckExpireDate(productName);
+                bool isExpired = (status == "Expired");
+
+                ExpireDia dialog = new ExpireDia(productName, isExpired);
+                dialog.ShowDialog();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

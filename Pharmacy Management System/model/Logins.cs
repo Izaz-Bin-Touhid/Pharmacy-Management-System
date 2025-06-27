@@ -12,35 +12,61 @@ namespace Pharmacy_Management_System.model
     public class Logins
     {
         SqlDbDataAccess dba = new SqlDbDataAccess();
+
         public void AddLogin(Login login)
         {
-            SqlCommand cmd = dba.GetQuery("INSERT INTO Login (userName, password,role) Values(@userName,@password,@role);");
+            SqlCommand cmd = dba.GetQuery("INSERT INTO Login (userName, password,role) VALUES(@userName,@password,@role);");
             cmd.Parameters.AddWithValue("@userName", login.UserName);
             cmd.Parameters.AddWithValue("@password", login.Password);
             cmd.Parameters.AddWithValue("@role", login.Role);
-
             cmd.CommandType = CommandType.Text;
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
 
-
-
+            try
+            {
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error adding login: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error adding login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (cmd.Connection.State != ConnectionState.Closed)
+                    cmd.Connection.Close();
+            }
         }
+
         public void UpdateLogin(Login login)
         {
             SqlCommand cmd = dba.GetQuery("UPDATE Login SET password=@password,role=@role WHERE userName=@userName;");
             cmd.Parameters.AddWithValue("@userName", login.UserName);
             cmd.Parameters.AddWithValue("@password", login.Password);
             cmd.Parameters.AddWithValue("@role", login.Role);
-
             cmd.CommandType = CommandType.Text;
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
 
-
-
+            try
+            {
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error updating login: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error updating login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (cmd.Connection.State != ConnectionState.Closed)
+                    cmd.Connection.Close();
+            }
         }
 
         public void DeleteLogin(string userName)
@@ -48,38 +74,62 @@ namespace Pharmacy_Management_System.model
             SqlCommand cmd = dba.GetQuery("DELETE FROM Login WHERE userName=@userName;");
             cmd.Parameters.AddWithValue("@userName", userName);
             cmd.CommandType = CommandType.Text;
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
 
-
-
+            try
+            {
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error deleting login: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error deleting login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (cmd.Connection.State != ConnectionState.Closed)
+                    cmd.Connection.Close();
+            }
         }
 
         public List<Login> GetData(SqlCommand cmd)
         {
-            cmd.Connection.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
             List<Login> logins = new List<Login>();
+            SqlDataReader reader = null;
 
-            using (reader)
+            try
             {
+                cmd.Connection.Open();
+                reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Login login = new Login();
-                    login.UserName = reader.GetString(0);
-                    login.Password = reader.GetString(1);
-                    login.Role = reader.GetString(2);
-
-                    logins.Add(login);
+                    logins.Add(new Login
+                    {
+                        UserName = reader.GetString(0),
+                        Password = reader.GetString(1),
+                        Role = reader.GetString(2)
+                    });
                 }
-
-                reader.Close();
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error retrieving logins: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error retrieving logins: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                reader?.Close();
+                if (cmd.Connection.State != ConnectionState.Closed)
+                    cmd.Connection.Close();
             }
 
-            cmd.Connection.Close();
             return logins;
-
         }
 
         public Login SearchLogin(string userName, string password)
@@ -89,54 +139,47 @@ namespace Pharmacy_Management_System.model
             cmd.Parameters.AddWithValue("@password", password);
             cmd.CommandType = CommandType.Text;
 
-            List<Login> logins = GetData(cmd);
-
-            if (logins.Count > 0)
-            {
-                return logins[0];
-            }
-            else
-            {
-                return null;
-            }
-
-            
-
-
+            var logins = GetData(cmd);
+            return logins.Count > 0 ? logins[0] : null;
         }
 
         public List<Login> GetAllLogin()
         {
             SqlCommand cmd = dba.GetQuery("SELECT * FROM Login;");
-            
             cmd.CommandType = CommandType.Text;
-
-            List<Login> logins = GetData(cmd);
-
-            return logins;
-
+            return GetData(cmd);
         }
 
-
-        ///Test////
         public static void DisplayAndSearch(string query, DataGridView dgv)
         {
             SqlDbDataAccess dba = new SqlDbDataAccess();
             SqlCommand cmd = dba.GetQuery(query);
             cmd.CommandType = CommandType.Text;
 
-            cmd.Connection.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            DataTable tbl = new DataTable();
-            tbl.Load(reader);
-            dgv.DataSource = tbl;
-
-            cmd.Connection.Close();
+            try
+            {
+                cmd.Connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    DataTable tbl = new DataTable();
+                    tbl.Load(reader);
+                    dgv.DataSource = tbl;
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error displaying logins: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error displaying logins: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (cmd.Connection.State != ConnectionState.Closed)
+                    cmd.Connection.Close();
+            }
         }
-
-
-
-
     }
+
 }

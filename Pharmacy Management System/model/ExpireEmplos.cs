@@ -12,110 +12,135 @@ using System.Windows.Forms;
 
 namespace Pharmacy_Management_System.model
 {
-    public class ExpireEmplos
-    {
-        SqlDbDataAccess sda = new SqlDbDataAccess();
+  
 
-        public string CheckExpireDate(string productName)
+        public class ExpireEmplos
         {
-            SqlCommand cmd = sda.GetQuery("SELECT expiryDate FROM Product WHERE productName = @productName;");
-            cmd.Parameters.AddWithValue("productName", productName);
+            SqlDbDataAccess sda = new SqlDbDataAccess();
 
-            string status = "Not Found";
-
-            try
+            public string CheckExpireDate(string productName)
             {
-                cmd.Connection.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlCommand cmd = sda.GetQuery("SELECT expiryDate FROM Product WHERE productName = @productName;");
+                cmd.Parameters.AddWithValue("productName", productName);
 
-                if (reader.Read())
+                string status = "Not Found";
+
+                try
                 {
-                    DateTime expiryDate = reader.GetDateTime(0); // Make sure DB column is of DATE or DATETIME type
-                    DateTime today = DateTime.Today;
-
-                    if (expiryDate < today)
-                        status = "Expired";
-                    else
-                        status = "Valid";
+                    cmd.Connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DateTime expiryDate = reader.GetDateTime(0);
+                            DateTime today = DateTime.Today;
+                            status = (expiryDate < today) ? "Expired" : "Valid";
+                        }
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show($"Database error checking expiry date: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error checking expiry date: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (cmd.Connection.State != ConnectionState.Closed)
+                        cmd.Connection.Close();
                 }
 
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error checking expiry date: " + ex.Message);
-            }
-            finally
-            {
-                cmd.Connection.Close();
+                return status;
             }
 
-            return status;
-        }
-
-
-        public List<Product> GetData(SqlCommand cmd)
-        {
-            cmd.Connection.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            List<Product> productList = new List<Product>();
-
-            using (reader)
+            public List<Product> GetData(SqlCommand cmd)
             {
-                while (reader.Read())
+                List<Product> productList = new List<Product>();
+                SqlDataReader reader = null;
+
+                try
                 {
-                    Product p = new Product();
-                    p.ProductName = reader.GetString(0);
-                    p.Category = reader.GetString(1);
-                    p.Price = (float)reader.GetDouble(2);
-                    p.Discount = reader.GetInt32(3);
-                    p.PriceAfterDiscount = (float)reader.GetDouble(4);
-                    p.StockQuantity = reader.GetInt32(5);
-                    p.ExpiryDate = reader.GetString(6);
-                    p.AdminName = reader.GetString(7);
+                    cmd.Connection.Open();
+                    reader = cmd.ExecuteReader();
 
-                    productList.Add(p);
+                    while (reader.Read())
+                    {
+                        var p = new Product
+                        {
+                            ProductName = reader.GetString(0),
+                            Category = reader.GetString(1),
+                            Price = (float)reader.GetDouble(2),
+                            Discount = reader.GetInt32(3),
+                            PriceAfterDiscount = (float)reader.GetDouble(4),
+                            StockQuantity = reader.GetInt32(5),
+                            ExpiryDate = reader.GetString(6),
+                            AdminName = reader.GetString(7)
+                        };
+                        productList.Add(p);
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show($"Database error retrieving data: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error retrieving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    reader?.Close();
+                    if (cmd.Connection.State != ConnectionState.Closed)
+                        cmd.Connection.Close();
                 }
 
-                reader.Close();
+                return productList;
             }
-            cmd.Connection.Close();
-            return productList;
-        }
 
-        public Product SearchProductByName(string productName)
-        {
-            SqlCommand cmd = sda.GetQuery("SELECT * FROM Product WHERE productName=@productName;");
-
-            cmd.Parameters.AddWithValue("productName", productName);
-            cmd.CommandType = CommandType.Text;
-
-            List<Product> productList = GetData(cmd);
-            if (productList.Count > 0)
+            public Product SearchProductByName(string productName)
             {
-                return productList[0];
+                SqlCommand cmd = sda.GetQuery("SELECT * FROM Product WHERE productName=@productName;");
+                cmd.Parameters.AddWithValue("productName", productName);
+                cmd.CommandType = CommandType.Text;
+
+                // No need for try/catch here since GetData handles exceptions
+                var productList = GetData(cmd);
+                return (productList.Count > 0) ? productList[0] : null;
             }
-            else
+
+            public static void DisplayAndSearch(string query, DataGridView dgv)
             {
-                return null;
+                SqlDbDataAccess dba = new SqlDbDataAccess();
+                SqlCommand cmd = dba.GetQuery(query);
+                cmd.CommandType = CommandType.Text;
+
+                try
+                {
+                    cmd.Connection.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable tbl = new DataTable();
+                        tbl.Load(reader);
+                        dgv.DataSource = tbl;
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show($"Database error displaying data: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error displaying data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (cmd.Connection.State != ConnectionState.Closed)
+                        cmd.Connection.Close();
+                }
             }
         }
 
-
-        public static void DisplayAndSearch(string query, DataGridView dgv)
-        {
-            SqlDbDataAccess dba = new SqlDbDataAccess();
-            SqlCommand cmd = dba.GetQuery(query);
-            cmd.CommandType = CommandType.Text;
-
-            cmd.Connection.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            DataTable tbl = new DataTable();
-            tbl.Load(reader);
-            dgv.DataSource = tbl;
-
-            cmd.Connection.Close();
-        }
     }
-}
+

@@ -35,7 +35,7 @@ namespace Pharmacy_Management_System.view
         {
             this.Hide();
             RegistrationForm rf = new RegistrationForm();
-            rf.ShowDialog();
+           
             rf.Show();
         }
 
@@ -44,20 +44,44 @@ namespace Pharmacy_Management_System.view
             string userName = textBox1.Text;
             string password = textBox2.Text;
 
+            if (string.IsNullOrWhiteSpace(userName) && string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please input User Name and Password", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                MessageBox.Show("Please enter your username", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter your password", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             LoginController lgc = new LoginController();
             Login login= lgc.SearchLogin(userName, password);
 
             if(login != null)
             {
-                if (login.UserName.Equals(userName) && login.Password.Equals(password) && login.Role.Equals("Admin")) {
+                if (login.UserName.Equals("admin", StringComparison.OrdinalIgnoreCase) &&
+        login.UserName.Equals("admin") &&
+        login.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Hide the current form
                     this.Hide();
+
+                    // Redirect to AdminHomeFrame
                     AdminHomeFrame adh = new AdminHomeFrame(login);
                     adh.Show();
-                
                 }
                 else if (login.UserName.Equals(userName) && login.Password.Equals(password) && login.Role.Equals("Employee"))
                 {
-                    MessageBox.Show("Employee");
+                    this.Hide();
+                    ExpireEmplo ex = new ExpireEmplo();
+                    ex.Show();
 
                 }
 
@@ -73,6 +97,10 @@ namespace Pharmacy_Management_System.view
 
 
             }
+
+            
+            
+
             else
             {
                 MessageBox.Show("Invalid");
@@ -85,6 +113,63 @@ namespace Pharmacy_Management_System.view
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked == false)
+            {
+                textBox2.UseSystemPasswordChar = true;
+
+            }
+
+            else
+            {
+                textBox2.UseSystemPasswordChar = false;
+            }
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.FromArgb(41, 128, 185);
+
+            // Optional: Change text color
+            button1.ForeColor = Color.White;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            button1.BackColor = SystemColors.Control;
+
+            // Optional: Restore original text color
+            button1.ForeColor = Color.Black;
+        }
+
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            button3.BackColor = Color.FromArgb(41, 128, 185);
+
+            // Optional: Change text color
+            button3.ForeColor = Color.White;
+
+        }
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            button3.BackColor = SystemColors.Control;
+
+            // Optional: Restore original text color
+            button3.ForeColor = Color.Black;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
