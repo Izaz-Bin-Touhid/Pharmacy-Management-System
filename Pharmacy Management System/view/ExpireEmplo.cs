@@ -45,7 +45,7 @@ namespace Pharmacy_Management_System.view
             if (e.RowIndex < 0) return;
 
             // Column name match kore check korchi
-            if (dataGridView.Columns[e.ColumnIndex].HeaderText == "expiryDate")
+            if (dataGridView.Columns[e.ColumnIndex].HeaderText == "CheckDate")
             {
                 string productName = dataGridView.Rows[e.RowIndex].Cells["productName"].Value.ToString();
 
@@ -61,6 +61,11 @@ namespace Pharmacy_Management_System.view
         private void button4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ExpireEmplo_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,153 +1,131 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Windows.Forms;
+﻿using Pharmacy_Management_System.controller;
 using Pharmacy_Management_System.model;
-using Pharmacy_Management_System.controller;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Pharmacy_Management_System.view
 {
     public partial class CustomerHomeFrame : Form
     {
-        Login login;
-
-
-        private List<Product> allProducts = new List<Product>(); // To store all products
-
-        public CustomerHomeFrame(Login login)
+        public CustomerHomeFrame()
         {
             InitializeComponent();
-            this.login = login;
         }
 
+        public void Display()
+        {
+            Logins.DisplayAndSearch(
+                "SELECT productName, category, price, discount, priceAfterDiscount, stockQuantity, expiryDate FROM Product",
+                dataGridView
+            );
+        }
         private void CustomerHomeFrame_Load(object sender, EventArgs e)
         {
-            ProductController productController = new ProductController();
-            allProducts = productController.GetAllProducts();
-            dataGridView1.DataSource = ConvertToDataTable(allProducts);
 
-            // Set the selection mode to FullRowSelect
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        private DataTable ConvertToDataTable(List<Product> products)
+        private void CustomerHomeFrame_Shown(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Product Name");
-            dt.Columns.Add("Category");
-            dt.Columns.Add("Price");
-            dt.Columns.Add("Discount");
-            dt.Columns.Add("Price After Discount");
-            dt.Columns.Add("Stock Quantity");
-            dt.Columns.Add("Expiry Date");
-
-            foreach (var product in products)
-            {
-                DataRow row = dt.NewRow();
-                row["Product Name"] = product.ProductName;
-                row["Category"] = product.Category;
-                row["Price"] = product.Price;
-                row["Discount"] = product.Discount;
-                row["Price After Discount"] = product.PriceAfterDiscount;
-                row["Stock Quantity"] = product.StockQuantity;
-                row["Expiry Date"] = product.ExpiryDate;
-                dt.Rows.Add(row);
-            }
-
-            return dt;
+            Display();
         }
 
-        // This will trigger when the selection changes in the DataGridView
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void productnametextbox_TextChanged(object sender, EventArgs e)
         {
-            // Ensure there's a valid row selected
-            if (dataGridView1.SelectedRows.Count > 0)
+
+        }
+
+        private void pricetextbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void quantitytextbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Make sure the click is on a row, not on the header
             {
-                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
 
-                // Populate the text boxes with the selected row's data
-                textBoxProductName.Text = selectedRow.Cells["Product Name"].Value?.ToString() ?? "N/A"; // Default "N/A" if null
-                textBoxPrice.Text = selectedRow.Cells["Price"].Value?.ToString() ?? "0"; // Default "0" if null
-                textBoxQuantity.Text = "0"; // Default quantity set to 0
+                // Load product name
+                productnametextbox.Text = selectedRow.Cells["productName"].Value?.ToString() ?? "N/A";
 
-                // Store the maximum quantity (stock quantity) for validation
-                int stockQuantity = Convert.ToInt32(selectedRow.Cells["Stock Quantity"].Value);
-                textBoxQuantity.Tag = stockQuantity; // Store stock quantity in Tag for later use
+                // 👉 Load price after discount instead of original price
+                pricetextbox.Text = selectedRow.Cells["priceAfterDiscount"].Value?.ToString() ?? "0";
+
+                // Quantity should always be 0 initially
+                quantitytextbox.Text = "0";
             }
         }
 
-        // This method will handle the Quantity validation
-        private void textBoxQuantity_TextChanged(object sender, EventArgs e)
-        {
-            if (int.TryParse(textBoxQuantity.Text, out int quantity))
-            {
-                // Retrieve the maximum available quantity (from the database)
-                int maxQuantity = (int)textBoxQuantity.Tag;
 
-                // Validate the quantity
-                if (quantity < 0 || quantity > maxQuantity)
+
+
+        private void dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+
+                productnametextbox.Text = selectedRow.Cells["productName"].Value?.ToString() ?? "N/A";
+
+                // 👉 Load price after discount instead of original price
+                pricetextbox.Text = selectedRow.Cells["priceAfterDiscount"].Value?.ToString() ?? "0";
+
+                quantitytextbox.Text = "0";
+            }
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CartItem item = new CartItem
                 {
-                    MessageBox.Show($"Invalid quantity! Enter a value between 0 and {maxQuantity}.", "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBoxQuantity.Text = "0"; // Reset to 0 if invalid
-                }
+                    CartSerial = Guid.NewGuid().ToString(), // Or any logic
+                    ProductName = productnametextbox.Text.Trim(),
+                    PriceAfterDiscount = float.Parse(pricetextbox.Text.Trim()),
+                    Quantity = int.Parse(quantitytextbox.Text.Trim())
+                };
+                item.Total = item.PriceAfterDiscount * item.Quantity;
+
+                // Add to database
+                CartController cartController = new CartController();
+                cartController.AddCartItem(item);
+
+                // Show new form
+                CartSummaryForm summaryForm = new CartSummaryForm();
+                summaryForm.Show();
             }
-            else
+            catch (Exception ex)
             {
-                // Reset the quantity if the input is not a valid number
-                textBoxQuantity.Text = "0";
+                MessageBox.Show("Error adding to cart: " + ex.Message);
             }
         }
 
-        private void buttonAddToCart_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            // Validate that necessary fields are filled
-            if (string.IsNullOrEmpty(textBoxProductName.Text) || string.IsNullOrEmpty(textBoxQuantity.Text) || string.IsNullOrEmpty(textBoxPrice.Text) || textBoxQuantity.Text == "0")
-            {
-                MessageBox.Show("Please fill in the product name, valid quantity, and price.");
-                return;
-            }
-
-            string productName = textBoxProductName.Text;
-            double price = Convert.ToDouble(textBoxPrice.Text);
-            int quantity = Convert.ToInt32(textBoxQuantity.Text);
-
-            // Calculate total price
-            double total = price * quantity;
-
-
-
-
-            // Show success message
-            MessageBox.Show($"{productName}Order Confirmd. Total: {total}");
-
-            // Clear text fields after successful addition
-            textBoxProductName.Clear();
-            textBoxPrice.Clear();
-            textBoxQuantity.Clear();
-        }
-
-        // Search functionality for Product Name
-        private void buttonSearch_Click(object sender, EventArgs e)
-        {
-            string searchQuery = textBoxSearch.Text.ToLower(); // Convert to lowercase for case-insensitive search
-
-            // Filter the products list based on the search query
-            var filteredProducts = allProducts.Where(p => p.ProductName.ToLower().Contains(searchQuery)).ToList();
-
-            // Update the DataGridView to show the filtered products
-            dataGridView1.DataSource = ConvertToDataTable(filteredProducts);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-
-
-
-
+            this.Hide();
+            CartSummaryForm cs = new CartSummaryForm();
+            cs.Show();
         }
     }
-
-
 }
+
+

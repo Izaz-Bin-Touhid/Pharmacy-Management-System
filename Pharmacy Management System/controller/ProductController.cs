@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pharmacy_Management_System.view;
 
 namespace Pharmacy_Management_System.controller
 {
@@ -15,6 +16,7 @@ namespace Pharmacy_Management_System.controller
     {
         SqlDbDataAccess sda = new SqlDbDataAccess();
 
+       
         public void AddCustomer(Customer cs)
         {
             try

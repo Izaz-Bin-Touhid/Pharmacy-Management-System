@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controller\CartController.cs" />
     <Compile Include="controller\CustomerController.cs" />
+    <Compile Include="controller\EmailController.cs" />
     <Compile Include="controller\LoginController.cs" />
     <Compile Include="controller\ProductController.cs" />
     <Compile Include="model\Admin.cs" />
+    <Compile Include="model\Cart.cs" />
+    <Compile Include="model\CartItem.cs" />
     <Compile Include="model\Customers.cs" />
+    <Compile Include="model\Email.cs" />
+    <Compile Include="model\Emails.cs" />
     <Compile Include="model\EmployeeController.cs" />
     <Compile Include="model\Customer.cs" />
     <Compile Include="model\Employee.cs" />
@@ -68,6 +74,12 @@
     </Compile>
     <Compile Include="view\AdminHomeFrame.Designer.cs">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\CartSummaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\CartSummaryForm.Designer.cs">
+      <DependentUpon>CartSummaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="view\CustomerHomeFrame.cs">
       <SubType>Form</SubType>
@@ -129,6 +141,12 @@
     <Compile Include="view\RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\sendEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\sendEmail.Designer.cs">
+      <DependentUpon>sendEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,7 +167,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\CustomerHomeFrame.resx">
       <DependentUpon>CustomerHomeFrame.cs</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="view\EcCrude.resx">
       <DependentUpon>EcCrude.cs</DependentUpon>
@@ -177,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\sendEmail.resx">
+      <DependentUpon>sendEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\test.resx">
       <DependentUpon>test.cs</DependentUpon>

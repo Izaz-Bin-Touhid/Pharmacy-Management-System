@@ -43,31 +43,34 @@ namespace Pharmacy_Management_System.model
 
         public void UpdateLogin(Login login)
         {
-            SqlCommand cmd = dba.GetQuery("UPDATE Login SET password=@password,role=@role WHERE userName=@userName;");
-            cmd.Parameters.AddWithValue("@userName", login.UserName);
-            cmd.Parameters.AddWithValue("@password", login.Password);
-            cmd.Parameters.AddWithValue("@role", login.Role);
-            cmd.CommandType = CommandType.Text;
+            using (SqlCommand cmd = dba.GetQuery("UPDATE Login SET password = @password, role = @role WHERE userName = @userName;"))
+            {
+                cmd.Parameters.AddWithValue("@userName", login.UserName);
+                cmd.Parameters.AddWithValue("@password", login.Password);
+                cmd.Parameters.AddWithValue("@role", login.Role);
+                cmd.CommandType = CommandType.Text;
 
-            try
-            {
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                MessageBox.Show($"Database error updating login: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unexpected error updating login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (cmd.Connection.State != ConnectionState.Closed)
-                    cmd.Connection.Close();
+                try
+                {
+                    cmd.Connection.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        MessageBox.Show("No user found with the specified username.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show($"Database error updating login: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Unexpected error updating login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
 
         public void DeleteLogin(string userName)
         {

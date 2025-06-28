@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pharmacy_Management_System.model;
 using Pharmacy_Management_System.controller;
-
 
 namespace Pharmacy_Management_System.view
 {
     public partial class EcDialouge : Form
     {
-        //Tex=st
         private readonly EcCrude _ec;
-
 
         public EcDialouge(EcCrude ec)
         {
@@ -27,17 +18,33 @@ namespace Pharmacy_Management_System.view
 
         public void Clear()
         {
+            textBox1.Enabled = true;
             textBox1.Text = textBox3.Text = "";
             radioButton1.Checked = false;
             radioButton2.Checked = false;
+            btnSave.Text = "Save";
         }
 
+        // Set data for Edit
+        public void SetData(string userName, string password, string role)
+        {
+            textBox1.Text = userName;
+            textBox1.Enabled = false; // username is primary key, prevent changing
+            textBox3.Text = password;
+
+            if (role == "Employee")
+                radioButton1.Checked = true;
+            else if (role == "Customer")
+                radioButton2.Checked = true;
+
+            btnSave.Text = "Update";
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Trim().Length < 3)
             {
-                MessageBox.Show("Name must be grater than 3 character");
+                MessageBox.Show("Name must be greater than 3 characters");
                 return;
             }
 
@@ -54,28 +61,32 @@ namespace Pharmacy_Management_System.view
             }
 
             string role = radioButton1.Checked ? "Employee" : "Customer";
+            string userName = textBox1.Text.Trim();
+            string password = textBox3.Text.Trim();
+
+            Login login = new Login(userName, password, role); // Create the object
+
+            Logins logins = new Logins();
 
             if (btnSave.Text == "Save")
             {
-                Login login = new Login(textBox1.Text.Trim(), textBox3.Text.Trim(), role);
-                Logins logins = new Logins();
                 logins.AddLogin(login);
-                Clear();
+                MessageBox.Show("Added successfully!");
             }
+            else if (btnSave.Text == "Update")
+            {
+                logins.UpdateLogin(login);
+                MessageBox.Show("Updated successfully!");
+            }
+
             _ec.Display();
-
-
-
+            this.Close(); // Close after save/update
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void EcDialouge_Load(object sender, EventArgs e)
         {
-
+            Clear();
         }
 
         private void btnSave_MouseEnter(object sender, EventArgs e)
@@ -86,14 +97,18 @@ namespace Pharmacy_Management_System.view
 
         private void btnSave_MouseLeave(object sender, EventArgs e)
         {
-            btnSave.BackColor =  Color.FromArgb(2, 0, 121);
+            btnSave.BackColor = Color.FromArgb(2, 0, 121);
             btnSave.ForeColor = Color.White;
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close(); // Exit button
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            // Optional UI Paint
         }
     }
 }

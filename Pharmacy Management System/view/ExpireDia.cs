@@ -42,6 +42,11 @@ namespace Pharmacy_Management_System.view
         {
             this.Close();
         }
+
+        private void ExpireDia_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

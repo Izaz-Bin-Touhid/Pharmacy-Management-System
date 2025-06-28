@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pharmacy_Management_System.controller;
 using System.Data.SqlClient;
-using Pharmacy_Management_System.model;
+
 
 
 

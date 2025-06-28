@@ -10,16 +10,22 @@ using System.Windows.Forms;
 using Pharmacy_Management_System.model;
 using Pharmacy_Management_System.controller;
 using System.Data.SqlClient;
-using System.Data;
+
 
 namespace Pharmacy_Management_System.view
 {
+
+    
+
     public partial class EcCrude : Form
     {
+        private readonly EcDialouge _ec;
         
+
         public EcCrude()
         {
             InitializeComponent();
+            
         }
 
         public void Display()
@@ -59,30 +65,39 @@ namespace Pharmacy_Management_System.view
             // Edit
             if (e.ColumnIndex == 0)
             {
-                // Edit
+                // Row থেকে ডাটা নেওয়া
+                string userName = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string password = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string role = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+
+                // Edit ডায়ালগ খুলে ডেটা পাঠানো
+                EcDialouge dialogue = new EcDialouge(this);
+                dialogue.SetData(userName, password, role); // EcDialouge ফর্মে এই মেথড থাকতে হবে
+                dialogue.ShowDialog();
+
+                Display(); // রিফ্রেশ
                 return;
             }
 
-
+            // Delete
             if (e.ColumnIndex == 1)
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-
                     string userName = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
 
                     Logins lgs = new Logins();
                     lgs.DeleteLogin(userName);
 
                     MessageBox.Show("Deleted successfully!");
-
                     Display();
                 }
                 return;
             }
         }
+
 
 
         private void btnNew_MouseEnter(object sender, EventArgs e)

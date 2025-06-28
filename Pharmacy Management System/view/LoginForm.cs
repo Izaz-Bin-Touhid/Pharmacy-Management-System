@@ -87,7 +87,9 @@ namespace Pharmacy_Management_System.view
 
                 else if (login.UserName.Equals(userName) && login.Password.Equals(password) && login.Role.Equals("Customer"))
                 {
-                    MessageBox.Show("Customer");
+                    //this.Hide();
+                    //CustomerHomeFrame cf = new CustomerHomeFrame(login);
+                    //cf.Show();
 
                 }
                 else

@@ -46,8 +46,8 @@
             this.prtxt = new System.Windows.Forms.TextBox();
             this.Pname = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbltext = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.lbltext = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -195,6 +195,7 @@
             this.btnUpdate.TabIndex = 8;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // ctxt
             // 
@@ -260,17 +261,6 @@
             this.panel1.Size = new System.Drawing.Size(665, 144);
             this.panel1.TabIndex = 4;
             // 
-            // lbltext
-            // 
-            this.lbltext.AutoSize = true;
-            this.lbltext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltext.ForeColor = System.Drawing.Color.White;
-            this.lbltext.Location = new System.Drawing.Point(30, 58);
-            this.lbltext.Name = "lbltext";
-            this.lbltext.Size = new System.Drawing.Size(204, 28);
-            this.lbltext.TabIndex = 0;
-            this.lbltext.Text = "Update Product Info";
-            // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -283,6 +273,17 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // lbltext
+            // 
+            this.lbltext.AutoSize = true;
+            this.lbltext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltext.ForeColor = System.Drawing.Color.White;
+            this.lbltext.Location = new System.Drawing.Point(30, 58);
+            this.lbltext.Name = "lbltext";
+            this.lbltext.Size = new System.Drawing.Size(204, 28);
+            this.lbltext.TabIndex = 0;
+            this.lbltext.Text = "Update Product Info";
+            // 
             // productUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -293,6 +294,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "productUp";
             this.Text = "productUp";
+            this.Load += new System.EventHandler(this.productUp_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
