@@ -23,7 +23,7 @@ namespace Pharmacy_Management_System
             //Application.Run(new EcCrude());
             //Application.Run(new productCrude());
           // Application.Run(new ExpireEmplo());
-            Application.Run(new CustomerHomeFrame());
+           Application.Run(new CustomerHomeFrame());
         }
     }
 }

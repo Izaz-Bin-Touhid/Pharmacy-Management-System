@@ -3,69 +3,49 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Pharmacy_Management_System.controller;
+using Pharmacy_Management_System.view;
 
 namespace Pharmacy_Management_System.model
 {
     public class Cart
     {
+        // Using the existing SqlDbDataAccess instance to handle the database connection
         SqlDbDataAccess dba = new SqlDbDataAccess();
 
+        // Add a new cart item to the database
         public void AddToCart(CartItem item)
         {
-            SqlCommand cmd = dba.GetQuery("INSERT INTO cartTable (cartSerial, productName, priceAfterDiscount, quantity, total) VALUES (@cartSerial, @productName, @priceAfterDiscount, @quantity, @total);");
-            cmd.Parameters.AddWithValue("@cartSerial", item.CartSerial);
-            cmd.Parameters.AddWithValue("@productName", item.ProductName);
-            cmd.Parameters.AddWithValue("@priceAfterDiscount", item.PriceAfterDiscount);
-            cmd.Parameters.AddWithValue("@quantity", item.Quantity);
-            cmd.Parameters.AddWithValue("@total", item.Total);
-            cmd.CommandType = CommandType.Text;
+            string query = "INSERT INTO cartTable (cartSerial, productName, priceAfterDiscount, quantity, total) " +
+                           "VALUES (@cartSerial, @productName, @priceAfterDiscount, @quantity, @total);";
 
-            try
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                MessageBox.Show($"Database error adding cart item: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unexpected error adding cart item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (cmd.Connection.State != ConnectionState.Closed)
-                    cmd.Connection.Close();
-            }
+                new SqlParameter("@cartSerial", item.CartSerial),
+                new SqlParameter("@productName", item.ProductName),
+                new SqlParameter("@priceAfterDiscount", item.PriceAfterDiscount),
+                new SqlParameter("@quantity", item.Quantity),
+                new SqlParameter("@total", item.Total)
+            };
+
+            SqlCommand cmd = dba.GetQuery(query, parameters);
+            dba.ExecuteNonQuery(cmd); // Executes the query
         }
 
+        // Delete a cart item based on cartSerial
         public void DeleteCartItem(string cartSerial)
         {
-            SqlCommand cmd = dba.GetQuery("DELETE FROM cartTable WHERE cartSerial = @cartSerial;");
-            cmd.Parameters.AddWithValue("@cartSerial", cartSerial);
-            cmd.CommandType = CommandType.Text;
+            string query = "DELETE FROM cartTable WHERE cartSerial = @cartSerial;";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@cartSerial", cartSerial)
+            };
 
-            try
-            {
-                cmd.Connection.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                MessageBox.Show($"Database error deleting cart item: {sqlEx.Message}", "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unexpected error deleting cart item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (cmd.Connection.State != ConnectionState.Closed)
-                    cmd.Connection.Close();
-            }
+            SqlCommand cmd = dba.GetQuery(query, parameters);
+            dba.ExecuteNonQuery(cmd); // Executes the DELETE query
         }
 
+        // Fetch data from SQL and return a list of CartItem
         public List<CartItem> GetData(SqlCommand cmd)
         {
             List<CartItem> items = new List<CartItem>();
@@ -73,17 +53,16 @@ namespace Pharmacy_Management_System.model
 
             try
             {
-                cmd.Connection.Open();
-                reader = cmd.ExecuteReader();
+                reader = dba.ExecuteReader(cmd);
                 while (reader.Read())
                 {
                     CartItem item = new CartItem(
                         reader["cartSerial"].ToString(),
                         reader["productName"].ToString(),
-                        Convert.ToSingle(reader["priceAfterDiscount"]),
-                        Convert.ToInt32(reader["quantity"])
+                        reader["priceAfterDiscount"] != DBNull.Value ? Convert.ToSingle(reader["priceAfterDiscount"]) : 0.0f,
+                        reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0
                     );
-                    item.Total = Convert.ToSingle(reader["total"]);
+                    item.Total = reader["total"] != DBNull.Value ? Convert.ToSingle(reader["total"]) : 0.0f;
                     items.Add(item);
                 }
             }
@@ -98,45 +77,42 @@ namespace Pharmacy_Management_System.model
             finally
             {
                 reader?.Close();
-                if (cmd.Connection.State != ConnectionState.Closed)
-                    cmd.Connection.Close();
             }
 
             return items;
         }
 
+        // Get all cart items
         public List<CartItem> GetAllCartItems()
         {
-            SqlCommand cmd = dba.GetQuery("SELECT * FROM cartTable;");
-            cmd.CommandType = CommandType.Text;
+            string query = "SELECT * FROM cartTable;";
+            SqlCommand cmd = dba.GetQuery(query);
             return GetData(cmd);
         }
 
+        // Search for a cart item based on cartSerial
         public CartItem SearchCartItem(string cartSerial)
         {
-            SqlCommand cmd = dba.GetQuery("SELECT * FROM cartTable WHERE cartSerial = @cartSerial;");
-            cmd.Parameters.AddWithValue("@cartSerial", cartSerial);
-            cmd.CommandType = CommandType.Text;
+            string query = "SELECT * FROM cartTable WHERE cartSerial = @cartSerial;";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@cartSerial", cartSerial)
+            };
 
-            var items = GetData(cmd);
+            SqlCommand cmd = dba.GetQuery(query, parameters);
+            List<CartItem> items = GetData(cmd);
             return items.Count > 0 ? items[0] : null;
         }
 
+        // Static method to display and search data in DataGridView
         public static void DisplayAndSearch(string query, DataGridView dgv)
         {
             SqlDbDataAccess dba = new SqlDbDataAccess();
             SqlCommand cmd = dba.GetQuery(query);
-            cmd.CommandType = CommandType.Text;
-
             try
             {
-                cmd.Connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    DataTable tbl = new DataTable();
-                    tbl.Load(reader);
-                    dgv.DataSource = tbl;
-                }
+                DataTable tbl = dba.ExecuteDataTable(cmd); // Using ExecuteDataTable method to get DataTable
+                dgv.DataSource = tbl;
             }
             catch (SqlException sqlEx)
             {
@@ -146,11 +122,7 @@ namespace Pharmacy_Management_System.model
             {
                 MessageBox.Show($"Unexpected error displaying cart: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                if (cmd.Connection.State != ConnectionState.Closed)
-                    cmd.Connection.Close();
-            }
         }
     }
 }
+

@@ -81,6 +81,12 @@
     <Compile Include="view\CartSummaryForm.Designer.cs">
       <DependentUpon>CartSummaryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\Confirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Confirm.Designer.cs">
+      <DependentUpon>Confirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\CustomerHomeFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,12 @@
     </Compile>
     <EmbeddedResource Include="view\AdminHomeFrame.resx">
       <DependentUpon>AdminHomeFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\CartSummaryForm.resx">
+      <DependentUpon>CartSummaryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\Confirm.resx">
+      <DependentUpon>Confirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\CustomerHomeFrame.resx">
       <DependentUpon>CustomerHomeFrame.cs</DependentUpon>
